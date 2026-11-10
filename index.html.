@@ -1,0 +1,492 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Puggu 💗</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  font-family: Georgia, 'Times New Roman', serif;
+  background: linear-gradient(135deg, #fff0f5, #ffe0eb, #fff5f7);
+  color: #754b5b;
+  overflow-x: hidden;
+}
+
+#hearts {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.heart {
+  position: absolute;
+  bottom: -30px;
+  animation: floatUp linear forwards;
+  opacity: .55;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 650px;
+  margin: auto;
+  padding: 24px 18px 45px;
+}
+
+.stage {
+  display: none;
+  min-height: 85vh;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  animation: appear .8s ease;
+}
+
+.stage.active {
+  display: flex;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.small {
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-size: 11px;
+  color: #c27d98;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: clamp(38px, 10vw, 65px);
+  color: #bd718e;
+  margin-bottom: 18px;
+  line-height: 1.15;
+}
+
+h2 {
+  font-size: clamp(27px, 7vw, 39px);
+  color: #bd718e;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 17px;
+  line-height: 1.9;
+  margin: 12px 0;
+}
+
+.flower {
+  font-size: 55px;
+  margin: 12px;
+  animation: sway 3s infinite ease-in-out;
+}
+
+@keyframes sway {
+  50% { transform: rotate(10deg) scale(1.08); }
+}
+
+button {
+  border: none;
+  padding: 15px 28px;
+  border-radius: 35px;
+  background: linear-gradient(135deg, #e99ab5, #cb7597);
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 0 7px 20px #d88ba64d;
+  margin-top: 24px;
+  transition: .3s;
+}
+
+button:active {
+  transform: scale(.95);
+}
+
+button:hover {
+  transform: translateY(-3px);
+}
+
+.card {
+  background: #ffffffb8;
+  border: 1px solid #f7d2df;
+  border-radius: 23px;
+  padding: 24px 20px;
+  margin: 10px 0;
+  width: 100%;
+  box-shadow: 0 8px 25px #d88ba61c;
+}
+
+.card h3 {
+  color: #bd718e;
+  font-size: 21px;
+  margin-bottom: 8px;
+}
+
+.card p {
+  font-size: 15px;
+}
+
+.big-heart {
+  font-size: 75px;
+  margin: 15px;
+  animation: beat 1.5s infinite;
+}
+
+@keyframes beat {
+  50% { transform: scale(1.18); }
+}
+
+.envelope {
+  width: 210px;
+  height: 135px;
+  background: #e99ab5;
+  border-radius: 8px;
+  position: relative;
+  margin: 35px auto;
+  cursor: pointer;
+  box-shadow: 0 10px 30px #c77b9544;
+}
+
+.envelope:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-left: 105px solid transparent;
+  border-right: 105px solid transparent;
+  border-top: 80px solid #f5b6ca;
+  transform-origin: top;
+  transition: .6s;
+  z-index: 2;
+}
+
+.envelope.open:before {
+  transform: rotateX(180deg);
+}
+
+.envelope:after {
+  content: "💌";
+  position: absolute;
+  font-size: 45px;
+  top: 42px;
+  left: 82px;
+}
+
+.letter {
+  display: none;
+  background: #fffafc;
+  padding: 25px;
+  border-radius: 18px;
+  border: 1px solid #f4cada;
+  text-align: left;
+  line-height: 1.9;
+  width: 100%;
+  white-space: pre-line;
+}
+
+.letter.show {
+  display: block;
+  animation: appear .8s ease;
+}
+
+.signature {
+  text-align: right;
+  color: #c27d98;
+  margin-top: 20px;
+  font-style: italic;
+}
+
+.footer {
+  color: #c28da2;
+  font-size: 12px;
+  margin-top: 35px;
+}
+
+@media(max-width: 400px) {
+  p { font-size: 15px; }
+  .card { padding: 19px 15px; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="hearts"></div>
+
+<main>
+
+<!-- STAGE 1 -->
+<section class="stage active" id="stage1">
+  <div class="flower">🌸</div>
+  <div class="small">A little something for someone special</div>
+  <h1>Hey, Puggu!</h1>
+  <p>
+    Someone has made a little corner of the internet
+    just for you. 💗
+  </p>
+  <p>Are you ready for a tiny surprise?</p>
+  <button onclick="nextStage(2)">OPEN MY GIFT 🎁</button>
+</section>
+
+<!-- STAGE 2 -->
+<section class="stage" id="stage2">
+  <div class="small">A beautiful beginning</div>
+  <div class="flower">🦋</div>
+  <h2>The Day I Met You</h2>
+
+  <div class="card">
+    <p>
+      Puggu, sometimes we meet people without knowing
+      how important they will become in our lives.
+    </p>
+    <p>
+      And then, slowly, they become a beautiful part
+      of our everyday world.
+    </p>
+    <p>
+      That's what happened when I met you.
+      My life changed in so many little ways,
+      and I'm genuinely grateful that our paths crossed.
+    </p>
+  </div>
+
+  <button onclick="nextStage(3)">THERE'S MORE 💗</button>
+</section>
+
+<!-- STAGE 3 -->
+<section class="stage" id="stage3">
+  <div class="small">Things I'll always appreciate</div>
+  <h2>Things You've Taught Me 🌷</h2>
+
+  <div class="card">
+    <h3>🌱 To understand life</h3>
+    <p>Your advice has helped me look at situations differently.</p>
+  </div>
+
+  <div class="card">
+    <h3>🦋 To keep growing</h3>
+    <p>You remind me that there's always something new to learn.</p>
+  </div>
+
+  <div class="card">
+    <h3>💗 To value myself</h3>
+    <p>Your words have made me think more positively about life.</p>
+  </div>
+
+  <p>
+    Maybe you don't realise it, but your little pieces
+    of advice mean a lot to me.
+  </p>
+
+  <button onclick="nextStage(4)">ONE MORE THING ✨</button>
+</section>
+
+<!-- STAGE 4 -->
+<section class="stage" id="stage4">
+  <div class="small">A few little reasons</div>
+  <h2>Why You're Special 💖</h2>
+
+  <div class="card">
+    <h3>🌸 Your presence</h3>
+    <p>You make ordinary moments feel a little more beautiful.</p>
+  </div>
+
+  <div class="card">
+    <h3>🥹 Your advice</h3>
+    <p>You don't just listen; you help me understand things.</p>
+  </div>
+
+  <div class="card">
+    <h3>🫶 Your friendship</h3>
+    <p>I'm lucky to have someone like you in my life.</p>
+  </div>
+
+  <div class="card">
+    <h3>✨ Simply YOU</h3>
+    <p>You don't need to be anyone else to be special.</p>
+  </div>
+
+  <button onclick="nextStage(5)">OPEN YOUR LETTER 💌</button>
+</section>
+
+<!-- STAGE 5 -->
+<section class="stage" id="stage5">
+  <div class="small">Written from the heart</div>
+  <h2>A Letter For You 💌</h2>
+
+  <p>There's something I've wanted to tell you...</p>
+
+  <div class="envelope" id="envelope" onclick="openLetter()"></div>
+
+  <p id="tapText">Tap the envelope to open it 🌷</p>
+
+  <div class="letter" id="letter">
+    Dear Puggu,
+
+    I honestly don't know how to explain how much
+    your friendship means to me.
+
+    When I met you, I never imagined that you
+    would become such a beautiful part of my life.
+
+    You've given me advice, helped me understand
+    life, and made me see things from different
+    perspectives.
+
+    Sometimes even a small conversation with you
+    can make my day better.
+
+    I may not say it every time, but I appreciate
+    you more than you know.
+
+    Thank you for being YOU.
+    Thank you for being in my life.
+
+    And please remember that you are someone
+    worth appreciating, always. 💗
+
+    <div class="signature">
+      With lots of love &amp; appreciation,<br>
+      Your bestie 💗
+    </div>
+  </div>
+
+  <button id="lastButton" style="display:none"
+          onclick="nextStage(6)">
+    WAIT... ONE LAST SURPRISE 🥹
+  </button>
+</section>
+
+<!-- STAGE 6 -->
+<section class="stage" id="stage6">
+  <div class="small">Just for you</div>
+  <div class="big-heart">💗</div>
+  <h1>Hey Puggu!</h1>
+
+  <div class="card">
+    <h2>One little promise 🌸</h2>
+    <p>
+      No matter how busy life gets, I hope we never
+      forget how beautiful this friendship is.
+    </p>
+    <p>
+      Keep smiling, keep growing, and never stop
+      being the wonderful person you are.
+    </p>
+    <p>
+      I'm really glad I met you.
+    </p>
+    <h2>YOU'RE A BEAUTIFUL PART OF MY LIFE. 🥹</h2>
+  </div>
+
+  <p>And if you ever forget how special you are...</p>
+  <p>Come back and read this again. 💌</p>
+
+  <div class="flower">🌷🌸🌷</div>
+
+  <button onclick="celebrate()">SEND SOME HAPPINESS 💗</button>
+
+  <p id="finalMessage"></p>
+</section>
+
+<div class="footer">
+  Made with love, especially for Puggu 🌸
+</div>
+
+</main>
+
+<script>
+
+// CHANGE STAGES
+function nextStage(number) {
+  document.querySelectorAll(".stage").forEach(stage => {
+    stage.classList.remove("active");
+  });
+
+  document.getElementById("stage" + number).classList.add("active");
+
+  window.scrollTo({top: 0, behavior: "smooth"});
+}
+
+// OPEN ENVELOPE
+function openLetter() {
+  const envelope = document.getElementById("envelope");
+  const letter = document.getElementById("letter");
+  const button = document.getElementById("lastButton");
+  const text = document.getElementById("tapText");
+
+  if (letter.classList.contains("show")) return;
+
+  envelope.classList.add("open");
+
+  setTimeout(() => {
+    letter.classList.add("show");
+    text.style.display = "none";
+    button.style.display = "inline-block";
+  }, 500);
+}
+
+// FLOATING HEARTS
+const hearts = document.getElementById("hearts");
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = ["💗", "💕", "🌸", "✨"][Math.floor(Math.random()*4)];
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (12 + Math.random() * 18) + "px";
+  heart.style.animationDuration = (5 + Math.random() * 6) + "s";
+
+  hearts.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 11000);
+}
+
+setInterval(createHeart, 650);
+
+// FINAL SURPRISE
+function celebrate() {
+  const message = document.getElementById("finalMessage");
+
+  message.innerHTML =
+    "A million little smiles for you, Puggu! 💗🌸✨";
+
+  for(let i = 0; i < 30; i++) {
+    setTimeout(createHeart, i * 80);
+  }
+}
+
+</script>
+
+</body>
+</html>
